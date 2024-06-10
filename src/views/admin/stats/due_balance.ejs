@@ -1,0 +1,141 @@
+<%- include('../../partials/main', { pageTitle: 'All Dues' }) %>
+<link rel="stylesheet" href="/public/css/style2.css">
+
+<style>
+    .theme-table tbody tr th:last-child, .theme-table tbody tr td:last-child {
+    text-align: center;
+}
+</style>
+
+            <!-- index body start -->
+            <div class="page-body">
+                <!-- All User Table Start -->
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card card-table">
+                                <div class="card-body">
+                                    <div class="table-responsive table-product">
+                                        <table class="table all-package theme-table">
+                                            <div>
+                                                <h2>All Dues</h2>
+                                               </div>
+                                               <br>
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center;">Date</th>
+                                                    <th style="text-align: center;">Client Name</th>
+                                                    <th style="text-align: center;">Order Cost</th>
+                                                    <th style="text-align: center;">Due Balance</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                
+                                                    <% if (orders != '') { %>
+                                                        <% orders.forEach((row, index) => { %>
+                                                            <tr>
+                                                                <td style="text-align: center;"><%= row.created_date.toLocaleDateString('en-UK',options) %></td>
+                                                                <td style="text-align: center;"><%= row.client_id.name %></td>
+                                                                <td style="text-align: center;"><%= row.grand_total %></td>
+                                                                <td style="text-align: center;"><%= row.remaining_balance %></td>
+                                                            </tr>
+                                                        <% }) %>
+                                                    <% }else{ %>
+                                                        <tr>
+                                                            <td colspan="7" class="text-center">No Transactions Available</td>
+                                                        </tr>
+                                                    <% } %>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- All User Table Ends-->
+                
+                 <!-- footer start-->
+                 <%- include('../../partials/footer')%>
+                 <!-- footer End-->
+
+            </div>
+            <!-- index body end -->
+            
+            <!-- Include the necessary ApexCharts and jQuery libraries -->
+            <script src="/public/js/chart/apex-chart/apex-chart1.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+            <script>
+                // Function to get .toLocaleDateString('en-UK',options) formatted as 'DD MMM'
+                function getFormattedDate(date) {
+                    return date.toLocaleDateString('en-US', { day: '2-digit', month: 'short' });
+                }
+
+                // Function to update the chart with data
+                function updateChart(data) {
+                    var options = {
+                        series: [{
+                            data: data.map(entry => entry.totalRevenue)
+                        }],
+                        chart: {
+                            height: 250,
+                            type: 'bar',
+                        },
+                        colors: ['#ed702d', '#2483e2', '#3d3d3d'],
+                        plotOptions: {
+                            bar: {
+                                columnWidth: '25%',
+                                distributed: true,
+                                fill: {
+                                    colors: ['#ed702d', '#2483e2', '#3d3d3d'], // Set solid colors for the bars
+                                }
+                            }
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        legend: {
+                            show: false
+                        },
+                        xaxis: {
+                            categories: data.map(entry => entry.date),
+                            labels: {
+                                style: {
+                                    colors: ['#ed702d', '#2483e2','#3d3d3d', '#3d3d3d', '#3d3d3d', '#3d3d3d', '#3d3d3d'],
+                                    fontSize: '12px'
+                                }
+                            }
+                        },
+                    };
+
+                    var chart = new ApexCharts(document.querySelector("#sales-purchase-chart"), options);
+                    chart.render();
+                }
+
+                // Get current date
+                var currentDate = new Date();
+
+                // Generate previous 6-day date range
+                var dateRange = [];
+                for (var i = 6; i >= 0; i--) {
+                    var date = new Date(currentDate);
+                    console.log(date)
+                    date.setDate(currentDate.getDate() - i);
+                    dateRange.push(getFormattedDate(date));
+                }
+
+                // Call your API to get data
+                fetch('/admin/auth/sales-data')
+                    .then(response => response.json())
+                    .then(data => {
+                        // Assuming your API response is an array with objects having 'date' and 'totalRevenue' properties
+                        // Example API response: [{ date: '01 Jan', totalRevenue: 100 }, { date: '02 Jan', totalRevenue: 150 }, ...]
+                        updateChart(data);
+                    })
+                    .catch(error => console.error('Error fetching data from API:', error));
+            </script>
+
+<%- include('../../partials/end')%>

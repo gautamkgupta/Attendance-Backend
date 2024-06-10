@@ -1,0 +1,77 @@
+# User API:
+
+###
+GET http://localhost:9001/api/user/get
+content-type: application/json
+
+
+###
+POST  http://localhost:9001/api/user/postData
+content-type: application/json
+
+{
+    "profile_url": "profile.jpg",
+    "first_name": "GK",
+    "last_name": "G",
+    "email": "demo@gmail.com",
+    "phone": 9876543210,
+    "password": "11223344",
+    "is_active": 1
+}
+
+
+###
+GET http://localhost:9001/api/user/view/6658619a230ee13d294d3a01
+content-type: application/json
+
+
+# Attendance API:
+
+###
+GET http://localhost:9001/api/attendance/get
+content-type: application/json
+
+
+
+# Family API:
+
+###
+GET http://localhost:9001/api/family/get
+content-type: application/json
+
+
+# Education API:
+
+###
+GET http://localhost:9001/api/education/get
+content-type: application/json
+
+
+# Professional API:
+
+###
+GET http://localhost:9001/api/professional/get
+content-type: application/json
+
+
+# TaskList API:
+
+###
+GET http://localhost:9001/api/taskList/get
+content-type: application/json
+
+
+# TimeSheet API:
+
+###
+GET http://localhost:9001/api/timeSheet/get
+content-type: application/json
+
+
+# Regularization API:
+
+###
+GET http://localhost:9001/api/regularization/get
+content-type: application/json
+
+
