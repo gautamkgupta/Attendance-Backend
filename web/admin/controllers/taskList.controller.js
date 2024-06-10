@@ -80,7 +80,7 @@ module.exports = {
 
             const RecordData = new models.CustomerModel.TaskList({
                 _id: new mongoose.Types.ObjectId(),
-                email: user.email,
+                email: server.email,
                 task: server.task,
                 status: server.status,
                 date: server.date,
@@ -114,11 +114,13 @@ module.exports = {
 
             const TaskList_id = req.params.TaskList_id;
             const UpdateData = await models.CustomerModel.TaskList.findById(TaskList_id);
+            const Updatedemail = UpdateData.email;
 
             res.render('admin/taskList/edit-taskList', {
                 title: "TYS",
                 TaskList_id,
                 user,
+                Updatedemail,
                 UpdateData,
                 error: "Update TaskList"
             })

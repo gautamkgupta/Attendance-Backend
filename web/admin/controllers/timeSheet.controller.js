@@ -80,7 +80,7 @@ module.exports = {
 
             const RecordData = new models.CustomerModel.TimeSheet({
                 _id: new mongoose.Types.ObjectId(),
-                email: user.email,
+                email: server.email,
                 task: server.task,
                 status: server.status,
                 date: server.date,
@@ -113,11 +113,13 @@ module.exports = {
 
             const TimeSheet_id = req.params.TimeSheet_id;
             const UpdateData = await models.CustomerModel.TimeSheet.findById(TimeSheet_id);
+            const Updatedemail = UpdateData.email;
 
             res.render('admin/timeSheet/edit-timeSheet', {
                 title: "TYS",
                 TimeSheet_id,
                 user,
+                Updatedemail,
                 UpdateData,
                 error: "Update TimeSheet"
             })

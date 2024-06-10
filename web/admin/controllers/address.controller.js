@@ -117,11 +117,13 @@ module.exports = {
 
             const address_id = req.params.address_id;
             const UpdateData = await models.CustomerModel.Address.findById(address_id);
+            const Updatedemail = UpdateData.email;
 
             res.render('admin/address/edit-address', {
                 title: "TYS",
                 address_id,
                 user,
+                Updatedemail,
                 UpdateData,
                 error: "Update Address"
             })

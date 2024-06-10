@@ -33,7 +33,7 @@ module.exports = {
     console.log(loginData)
     try {
       // Check if the mobile number exists in the database
-      const userExists = await models.CustomerModel.User.findOne({ email: loginData.email });
+      const userExists = await models.CustomerModel.Admin.findOne({ email: loginData.email });
 
       console.log(userExists)
 
@@ -73,31 +73,30 @@ module.exports = {
       res.redirect('/admin/auth/login');
     }
 
-
-
     res.render('admin/dashboard', { user: user, error: "Welcome to Dashboard" });
   },
 
-  getuser: async (req, res) => {
-    try {
-      const user = req.user;
+  // getuser: async (req, res) => {
+  //   try {
+  //     const user = req.user;
 
-      if (!user) {
-        res.redirect('/admin/auth/login');
-      }
+  //     if (!user) {
+  //       res.redirect('/admin/auth/login');
+  //     }
 
-      const userId = req.params.userId;
+  //     const userId = req.params.userId;
 
-      const customers = await models.CustomerModel.Client.findOne({ _id: userId });
-      console.log(customers);
+  //     const customers = await models.CustomerModel.Client.findOne({ _id: userId });
+  //     console.log(customers);
 
-      res.json({ data: customers });
+  //     res.json({ data: customers });
 
-    } catch (error) {
-      console.error('Error during getuser:', error);
-      res.status(500).send('An error occurred during getuser.');
-    }
-  },
+  //   } catch (error) {
+  //     console.error('Error during getuser:', error);
+  //     res.status(500).send('An error occurred during getuser.');
+  //   }
+  // },
+
   // User Logout API
   logout: (req, res) => {
     try {

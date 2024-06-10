@@ -80,7 +80,7 @@ module.exports = {
 
             const RecordData = new models.CustomerModel.Regularization({
                 _id: new mongoose.Types.ObjectId(),
-                email: user.email,
+                email: server.email,
                 date: server.date,
                 reason: server.reason,
                 status: server.status,
@@ -114,11 +114,13 @@ module.exports = {
 
             const Regularization_id = req.params.Regularization_id;
             const UpdateData = await models.CustomerModel.Regularization.findById(Regularization_id);
+            const Updatedemail = UpdateData.email;
 
             res.render('admin/regularization/edit-regularization', {
                 title: "TYS",
                 Regularization_id,
                 user,
+                Updatedemail,
                 UpdateData,
                 error: "Update Regularization"
             })

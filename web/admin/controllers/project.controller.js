@@ -80,7 +80,7 @@ module.exports = {
 
             const RecordData = new models.CustomerModel.Project({
                 _id: new mongoose.Types.ObjectId(),
-                email: user.email,
+                email: server.email,
                 project_title: server.project_title,
                 project_desc: server.project_desc,
                 start_date: server.start_date,
@@ -114,11 +114,13 @@ module.exports = {
 
             const project_id = req.params.project_id;
             const UpdateData = await models.CustomerModel.Project.findById(project_id);
+            const Updatedemail = UpdateData.email;
 
             res.render('admin/project/edit-project', {
                 title: "TYS",
                 project_id,
                 user,
+                Updatedemail,
                 UpdateData,
                 error: "Update Project"
             })

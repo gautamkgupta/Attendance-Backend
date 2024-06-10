@@ -80,7 +80,7 @@ module.exports = {
 
             const EducationData = new models.CustomerModel.Education({
                 _id: new mongoose.Types.ObjectId(),
-                email: user.email,
+                email: server.email,
                 university_name: server.university_name,
                 company_name: server.company_name,
                 desc: server.desc,
@@ -115,11 +115,13 @@ module.exports = {
 
             const education_id = req.params.education_id;
             const UpdateData = await models.CustomerModel.Education.findById(education_id);
+            const Updatedemail = UpdateData.email;
 
             res.render('admin/education/edit-education', {
                 title: "TYS",
                 education_id,
                 user,
+                Updatedemail,
                 UpdateData,
                 error: "Update Education"
             })

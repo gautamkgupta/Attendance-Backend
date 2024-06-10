@@ -80,7 +80,7 @@ module.exports = {
 
             const WorkExperienceData = new models.CustomerModel.WorkExperience({
                 _id: new mongoose.Types.ObjectId(),
-                email: user.email,
+                email: server.email,
                 designation: server.designation,
                 experience: server.experience,
                 company_name: server.company_name,
@@ -116,11 +116,14 @@ module.exports = {
 
             const work_id = req.params.work_id;
             const UpdateData = await models.CustomerModel.WorkExperience.findById(work_id);
+            const Updatedemail = UpdateData.email;
 
             res.render('admin/work/edit-work', {
                 title: "TYS",
                 work_id,
                 user,
+                Updatedemail,
+                Updatedemail,
                 UpdateData,
                 error: "Update WorkExperience"
             })

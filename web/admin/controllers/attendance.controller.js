@@ -79,7 +79,7 @@ module.exports = {
 
             const UserData = new models.CustomerModel.Attendance({
                 _id: new mongoose.Types.ObjectId(),
-                email: user.email,
+                email: server.email,
                 check_in: server.check_in,
                 check_out: server.check_out,
                 total_hour: server.total_hour,
@@ -118,11 +118,13 @@ module.exports = {
 
             const attendance_id = req.params.attendance_id;
             const UpdateData = await models.CustomerModel.Attendance.findById(attendance_id);
+            const Updatedemail = UpdateData.email;
 
             res.render('admin/attendance/edit-attendance', {
                 title: "TYS",
                 attendance_id,
                 user,
+                Updatedemail,
                 UpdateData,
                 error: "Update Attendance"
             })

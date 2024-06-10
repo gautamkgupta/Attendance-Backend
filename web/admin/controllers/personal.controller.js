@@ -80,7 +80,7 @@ module.exports = {
 
             const PersonalData = new models.CustomerModel.Personal({
                 _id: new mongoose.Types.ObjectId(),
-                email: user.email,
+                email: server.email,
                 dob: server.dob,
                 gender: server.gender,
                 bio: server.bio
@@ -113,11 +113,13 @@ module.exports = {
 
             const personal_id = req.params.personal_id;
             const UpdateData = await models.CustomerModel.Personal.findById(personal_id);
+            const Updatedemail = UpdateData.email;
 
             res.render('admin/personal/edit-personal', {
                 title: "TYS",
                 personal_id,
                 user,
+                Updatedemail,
                 UpdateData,
                 error: "Update Personal"
             })

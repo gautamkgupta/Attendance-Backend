@@ -13,10 +13,12 @@ const BankAccount = require('./bank_account')
 const TaskList = require('./taskList')
 const TimeSheet = require('./timeSheet')
 const Regularization = require('./regularization')
+const Admin = require('./admin')
 
 
 module.exports = {
     Client,
+    Admin,
     User,
     Address,
     Attendance,

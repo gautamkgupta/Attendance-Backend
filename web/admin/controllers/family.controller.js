@@ -82,7 +82,7 @@ module.exports = {
 
             const FamilyData = new models.CustomerModel.Family({
                 _id: new mongoose.Types.ObjectId(),
-                email: user.email,
+                email: server.email,
                 father: server.father,
                 mother: server.mother,
                 alternate_number: server.alternate_number,
@@ -114,13 +114,14 @@ module.exports = {
             }
 
             const family_id = req.params.family_id;
-
             const FamilyData = await models.CustomerModel.Family.findById(family_id);
+            const Updatedemail = UpdateData.email;
 
             res.render('admin/family/edit-family', {
                 title: "TYS",
                 family_id,
                 user,
+                Updatedemail,
                 FamilyData,
                 error: "Update Family"
             })

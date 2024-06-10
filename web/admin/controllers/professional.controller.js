@@ -80,7 +80,7 @@ module.exports = {
 
             const ProfessionalData = new models.CustomerModel.Professional({
                 _id: new mongoose.Types.ObjectId(),
-                email: user.email,
+                email: server.email,
                 designation: server.designation,
                 experience: server.experience,
                 skill: server.skill,
@@ -119,11 +119,13 @@ module.exports = {
 
             const Professional_id = req.params.Professional_id;
             const UpdateData = await models.CustomerModel.Professional.findById(Professional_id);
+            const Updatedemail = UpdateData.email;
 
             res.render('admin/Professional/edit-Professional', {
                 title: "TYS",
                 Professional_id,
                 user,
+                Updatedemail,
                 UpdateData,
                 error: "Update Professional"
             })

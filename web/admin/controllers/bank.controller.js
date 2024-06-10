@@ -80,7 +80,7 @@ module.exports = {
 
             const InputRecord = new models.CustomerModel.BankAccount({
                 _id: new mongoose.Types.ObjectId(),
-                email: user.email,
+                email: server.email,
                 account_number: server.account_number,
                 bank_name: server.bank_name,
                 ifsc_code: server.ifsc_code,
@@ -117,11 +117,13 @@ module.exports = {
 
             const bank_id = req.params.bank_id;
             const UpdateData = await models.CustomerModel.BankAccount.findById(bank_id);
+            const Updatedemail = UpdateData.email;
 
             res.render('admin/bank/edit-bank', {
                 title: "TYS",
                 bank_id,
                 user,
+                Updatedemail,
                 UpdateData,
                 error: "Update Bank"
             })
