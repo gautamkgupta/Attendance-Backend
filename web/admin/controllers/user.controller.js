@@ -192,31 +192,55 @@ module.exports = {
         }
     },
 
+    // deleteUser: async (req, res) => {
+    //     try {
+    //         const user = req.user;
+
+    //         if (!user) {
+    //             return res.render('a-login', {
+    //                 title: "TYS",
+    //                 error: "User Not Found"
+    //             });
+    //         }
+
+    //         const user_id = req.params.user_id;
+    //         console.log(product_id);
+
+    //         const UserRecord = await models.CustomerModel.User.findByIdAndDelete({ _id: user_id });
+    //         console.log("Deleted Record: ", UserRecord);
+
+    //         const successMsg = `${product.name} -- Deleted Successfully`;
+    //         return res.status(200).json({ success: successMsg });
+    //     } catch (err) {
+    //         console.error(err);
+    //         const errorMsg = err.message || "Internal Server Error";
+    //         return res.status(500).json({ error: errorMsg });
+    //     }
+    // },
+
+    // Delete Category
     deleteUser: async (req, res) => {
         try {
-            const user = req.user;
+            const user_id = req.params.user_id;
+            console.log("Deleting User with ID:", user_id);
 
-            if (!user) {
-                return res.render('a-login', {
-                    title: "TYS",
-                    error: "User Not Found"
-                });
+            // Find and delete the product from the database
+            const deletedUser = await models.CustomerModel.User.findOneAndDelete({ _id: user_id });
+
+            if (!deletedUser) {
+                // product not found in the database
+                throw new Error('${} not found.');
             }
 
-            const user_id = req.params.user_id;
-            console.log(product_id);
+            console.log(`${deletedUser.name} deleted successfully`);
 
-            const UserRecord = await models.CustomerModel.User.findByIdAndDelete({ _id: user_id });
-            console.log("Deleted Record: ", UserRecord);
-
-            const successMsg = `${product.name} -- Deleted Successfully`;
-            return res.status(200).json({ success: successMsg });
+            res.status(200).json({ message: `${deletedUser.name} deleted successfully` });
         } catch (err) {
-            console.error(err);
-            const errorMsg = err.message || "Internal Server Error";
-            return res.status(500).json({ error: errorMsg });
+            console.log(`There is an issue while deleting the ${deletedUser.name}.`);
+            console.log(err.message);
+            res.status(400).send(err.message);
         }
-    },
+    }
 
     //   getProduct: async (req, res) => {
     //     const referer = req.get('Referer');

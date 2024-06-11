@@ -65,44 +65,16 @@
                                                                     <td style="text-align: center;">
                                                                         <%= row.phone %>
                                                                     </td>
-                                                                    <td class="text-center">
-                                                                        <div class="col-sm-5">
-                                                                            <div class="theme-form theme-form-2 mega-form"
-                                                                                style="font-size: 13px !important;">
-                                                                                <div class="onhover-dropdown">
-                                                                                    <div class="notification-box">
-                                                                                        <button
-                                                                                            style="padding: 10px 46px;"
-                                                                                            class="btn btn-outline-primary w-100 dropdown-toggle"
-                                                                                            type="button"
-                                                                                            id="paymentStatus"
-                                                                                            data-toggle="dropdown"
-                                                                                            aria-haspopup="true"
-                                                                                            aria-expanded="false">
-                                                                                            <% if
-                                                                                                (userAll[index].status===0
-                                                                                                ) { %>
-                                                                                                <%= "Active" %>
-                                                                                                    <% } else { %>
-                                                                                                        <%= "Inactive"
-                                                                                                            %>
-                                                                                                            <% } %>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <ul class="status-drop notification-dropdown onhover-show-div"
-                                                                                        style="top: 45px;width: 300%;">
-                                                                                        <a class="active-status-dropdown-item"
-                                                                                            href="#"
-                                                                                            data-user_id="<%= index + 1 %>"
-                                                                                            Active </a>
-                                                                                            <a class="status-dropdown-item"
-                                                                                                href="#"
-                                                                                                data-user_id="<%= index +1 %>"
-                                                                                                Inactive </a>
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
+                                                                    <td style="text-align: center;">
+                                                                        <!-- <div> -->
+                                                                        <div
+                                                                            class="legend-indicator <%= row.status ? 'status-close' : 'status-danger' %>">
+                                                                            <span id="statusText_<%= row._id %>">
+                                                                                <%= row.is_active ? 'Active'
+                                                                                    : 'Disabled' %>
+                                                                            </span>
                                                                         </div>
+                                                                        <!-- </div> -->
                                                                     </td>
 
                                                                     <td>
@@ -195,7 +167,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="remove-box">
-                        <p>You want to delete this Category</p>
+                        <p>You want to delete this User</p>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -241,38 +213,30 @@
         $(document).ready(function () {
             // Handle click event on the "Delete" link
             $('a[data-bs-toggle="modal"]').on('click', function () {
-                // Get the product ID from the link's href attribute
-                const productId = this.href.split('/').pop();
+                // Get the branch ID from the link's href attribute
+                const user_id = this.href.split('/').pop();
 
-                // Update the "Yes" button's data attribute with the product ID for reference when confirming deletion
-                $('#confirmDeleteBtn').data('category-id', productId);
+                // Update the "Yes" button's data attribute with the branch ID for reference when confirming deletion
+                $('#confirmDeleteBtn').data('user_id', user_id);
             });
 
             // Handle click event on the "Yes" button inside the modal
             $('#confirmDeleteBtn').on('click', function () {
-                // Get the product ID from the data attribute
-                const productId = $(this).data('category-id');
+                // Get the branch ID from the data attribute
+                const user_id = $(this).data('User_id');
 
-                // Make an AJAX request to the server to delete the product
+                // Make an AJAX request to the server to delete the branch
                 $.ajax({
                     method: 'DELETE',
-                    url: `/admin/user/del-user/${productId}`,
+                    url: `/admin/user/del-user/${user_id}`,
                     success: function (data) {
                         // If the deletion is successful, you can handle the response or reload the page
                         console.log(data); // Optional: Log the server response
-                        if (data.error) {
-                            // Handle error message
-                            alert(data.error);
-                        } else {
-                            // Product deleted successfully
-                            window.location.reload(); // Reload the page to reflect the changes
-                        }
+                        window.location.reload(); // Reload the page to reflect the changes
                     },
                     error: function (error) {
                         // Handle errors if any
                         console.error(error);
-                        alert(`${error.responseText}`);
-                        window.location.reload(); // Reload the page to reflect the changes
                     },
                 });
             });
