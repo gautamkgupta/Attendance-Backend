@@ -11,6 +11,6 @@ router.get('/edit-family/:family_id', AuthMiddleware.authenticateToken, FamilyCo
 router.post('/edit-family/:family_id', AuthMiddleware.authenticateToken, FamilyController.postUpdateFamily);
 router.post('/add-family', AuthMiddleware.authenticateToken, FamilyController.postAddFamily);
 
-// router.delete('/del-family/:family_id', AuthMiddleware.authenticateToken, FamilyController.deleteFamily);
+router.delete('/del-family/:family_id', AuthMiddleware.authenticateToken, FamilyController.deleteFamily);
 module.exports = router;
 

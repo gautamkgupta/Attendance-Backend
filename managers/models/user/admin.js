@@ -8,41 +8,31 @@ const AdminSchema = new mongoose.Schema({
     profile_url: {
         type: String,
         required: true,
-        default: 'default.jpeg',
     },
     first_name: {
         type: String,
         required: true,
         maxLength: 200,
-        default: 'GK',
     },
     last_name: {
         type: String,
         required: true,
         maxLength: 200,
-        default: 'G',
     },
     email: {
         type: String,
         required: true,
         maxLength: 200,
-        default: 'gg@gmail.com'
     },
     password: {
         type: String,
         required: false,
         maxLength: 200,
-        default: '12345678'
     },
     phone: {
-        type: String,
+        type: Number,
         required: true,
         maxLength: 200,
-        default: '1234554321'
-    },
-    is_active: {
-        type: Boolean,
-        default: true
     },
     created_date: {
         type: Date,

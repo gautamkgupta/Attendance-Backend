@@ -18,9 +18,11 @@ module.exports = {
                 })
             }
 
+            const userAll = await models.CustomerModel.User.find().exec();
             res.render('admin/regularization/add-regularization', {
                 title: "TYS",
                 user,
+                userAll,
                 error: "Add New Regularization"
             })
         } catch (err) {
@@ -162,6 +164,32 @@ module.exports = {
             console.log("Error: ", err);
             res.redirect(`/admin/regularization/edit-regularization?error=${encodeURIComponent(err)}`);
 
+        }
+    },
+
+    deleteRegularization: async (req, res) => {
+        try {
+            const user = req.user;
+
+            if (!user) {
+                return res.render('a-login', {
+                    title: "TYS",
+                    error: "User Not Found"
+                });
+            }
+
+            const Regularization_id = req.params.Regularization_id;
+            console.log("ID: ", Regularization_id);
+
+            const UserRecord = await models.CustomerModel.Regularization.findByIdAndDelete({ _id: Regularization_id });
+            console.log("Deleted Record: ", UserRecord);
+
+            const successMsg = `${UserRecord.first_name} -- Deleted Successfully`;
+            return res.status(200).json({ success: successMsg });
+        } catch (err) {
+            console.error(err);
+            const errorMsg = err.message || "Internal Server Error";
+            return res.status(500).json({ error: errorMsg });
         }
     },
 

@@ -11,6 +11,6 @@ router.get('/edit-taskList/:TaskList_id', AuthMiddleware.authenticateToken, Task
 router.post('/edit-taskList/:TaskList_id', AuthMiddleware.authenticateToken, TaskListController.postUpdateTaskList);
 router.post('/add-taskList', AuthMiddleware.authenticateToken, TaskListController.postAddTaskList);
 
-// router.delete('/del-taskList/:TaskList_id', AuthMiddleware.authenticateToken, TaskListController.deleteTaskListExperience);
+router.delete('/del-taskList/:TaskList_id', AuthMiddleware.authenticateToken, TaskListController.deleteTaskList);
 
 module.exports = router;

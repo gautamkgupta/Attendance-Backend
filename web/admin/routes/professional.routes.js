@@ -11,7 +11,7 @@ router.get('/edit-professional/:Professional_id', AuthMiddleware.authenticateTok
 router.post('/edit-professional/:Professional_id', AuthMiddleware.authenticateToken, ProfessionalController.postUpdateProfessional);
 router.post('/add-professional', AuthMiddleware.authenticateToken, ProfessionalController.postAddProfessional);
 
-// router.delete('/del-professional/:Professional_id', AuthMiddleware.authenticateToken, ProfessionalController.deleteProfessional);
+router.delete('/del-professional/:Professional_id', AuthMiddleware.authenticateToken, ProfessionalController.deleteProfessional);
 
 module.exports = router;
 

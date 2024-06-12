@@ -1,3 +1,29 @@
+# Admin API:
+
+###
+GET http://localhost:9001/api/admin/get
+content-type: application/json
+
+
+###
+POST  http://localhost:9001/api/admin/postData
+content-type: application/json
+
+{
+    "profile_url": "profile.jpg",
+    "first_name": "Admin",
+    "last_name": "Demo",
+    "email": "user@admin.com",
+    "phone": 9876543210,
+    "password": "12341234",
+}
+
+
+###
+GET http://localhost:9001/api/admin/view/6668307a4098ccaa5c2e65c4
+content-type: application/json
+
+
 # User API:
 
 ###
@@ -65,6 +91,12 @@ content-type: application/json
 
 ###
 GET http://localhost:9001/api/timeSheet/get
+content-type: application/json
+
+# LeaveStatus API:
+
+###
+GET http://localhost:9001/api/leaveStatus/get
 content-type: application/json
 
 

@@ -3,15 +3,14 @@ const models = require('../../../managers/models');
 const mongoose = require('mongoose');
 
 module.exports = {
-    retrieveUsers: async (req, res) => {
+    retrieveAdmin: async (req, res) => {
         try {
-            console.log("All User Record!..");
-            const users = await models.CustomerModel.User.find();
-            console.log(users);
-            // console.log([record for record in users['email'] if record['email'] == target_email]);
+            console.log("All Admins Record!..");
+            const Admins = await models.CustomerModel.Admin.find();
+            console.log(Admins);
             return res.status(200).json({
-                message: "All User",
-                Data: users
+                message: "All Admin",
+                Data: Admins
             });
         }
         catch (err) {
@@ -23,16 +22,16 @@ module.exports = {
         }
     },
 
-    postUsers: async (req, res) => {
+    postAdmin: async (req, res) => {
         try {
 
             // Check if the email already exists
-            const existingUser = await models.CustomerModel.User.findOne({ email: req.body.email });
-            if (existingUser) {
+            const existingAdmin = await models.CustomerModel.Admin.findOne({ email: req.body.email });
+            if (existingAdmin) {
                 return res.status(400).json({ message: "Email Already Used!.." });
             }
 
-            const NewRecord = new models.CustomerModel.User({
+            const NewRecord = new models.CustomerModel.Admin({
                 _id: new mongoose.Types.ObjectId(),
                 profile_url: req.body.profile_url,
                 first_name: req.body.first_name,
@@ -40,7 +39,6 @@ module.exports = {
                 email: req.body.email,
                 phone: req.body.phone,
                 password: req.body.password,
-                is_active: req.body.is_active,
             });
 
             NewRecord.save().then(data => {
@@ -61,9 +59,9 @@ module.exports = {
         }
     },
 
-    getUserById: async (req, res) => {
+    getAdminById: async (req, res) => {
         let id = req.params.id;
-        models.CustomerModel.User.findById(id).exec().then(doc => {
+        models.CustomerModel.Admin.findById(id).exec().then(doc => {
             // console.log(doc)
             if (doc)
                 res.status(200).json(doc);

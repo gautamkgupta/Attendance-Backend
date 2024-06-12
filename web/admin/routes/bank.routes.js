@@ -11,6 +11,6 @@ router.get('/edit-bank/:bank_id', AuthMiddleware.authenticateToken, BankControll
 router.post('/add-bank', AuthMiddleware.authenticateToken, BankController.postAddBank);
 router.post('/edit-bank/:bank_id', AuthMiddleware.authenticateToken, BankController.postUpdateBank);
 
-// router.delete('/del-bank/:bank_id', AuthMiddleware.authenticateToken, BankController.deleteBankExperience);
+router.delete('/del-bank/:bank_id', AuthMiddleware.authenticateToken, BankController.deleteBank);
 
 module.exports = router;

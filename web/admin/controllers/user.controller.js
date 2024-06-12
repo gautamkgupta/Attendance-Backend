@@ -19,7 +19,7 @@ module.exports = {
             }
 
             const userAll = await models.CustomerModel.User.find();
-            console.log("All User: ", userAll);
+            // console.log("All User: ", userAll);
 
             res.render('admin/user/add-user', {
                 title: "TYS",
@@ -70,13 +70,13 @@ module.exports = {
     postAddUser: async (req, res) => {
         const referer = req.get('Referer');
         try {
-            // const user = req.user;
-            // if (!user) {
-            //     return res.render('a-login', {
-            //         title: "TYS",
-            //         error: "User Not Found"
-            //     });
-            // }
+            const user = req.user;
+            if (!user) {
+                return res.render('a-login', {
+                    title: "TYS",
+                    error: "User Not Found"
+                });
+            }
 
             const server = req.body;
             console.log(server)
@@ -90,11 +90,21 @@ module.exports = {
                 res.redirect(`/admin/user/add-user?error=${encodeURIComponent(errorMsg)}`);
             }
 
+            // const imageFilename = req.files['profile_url'];
+            // console.log("Img File: ", imageFilename);
+            // const imageFilename = req.files['profile_url'] ? req.files['profile_url'][0].filename : null;
+            // console.log("Req File Nmae is");
+            // // console.log("Request: ", req);
+            // console.log("Req File: ", req.file);
+            // console.log("Req Files: ", req.files);
+            // // console.log(req.files['profile_url']);
+
             const UserData = new models.CustomerModel.User({
                 _id: new mongoose.Types.ObjectId(),
                 first_name: server.first_name,
                 last_name: server.last_name,
                 profile_url: server.profile_url,
+                // profile_url: imageFilename,
                 email: server.email,
                 phone: server.phone,
                 password: server.password,
@@ -170,7 +180,14 @@ module.exports = {
                 res.redirect(`/admin/user/add-user?error=${encodeURIComponent(errorMsg)}`);
             }
 
-            UserRecord.profile_url = server.profile_url;
+            // Check if 'image' field is found in the request
+            if (req.files && req.files['profile_url']) {
+                if (UserRecord.profile_url) {
+                    ImgServices.deleteImageFile(UserRecord.profile_url);
+                }
+                UserRecord.profile_url = req.files['profile_url'][0].filename;
+            }
+
             UserRecord.first_name = server.first_name;
             UserRecord.last_name = server.last_name;
             UserRecord.email = server.email;
@@ -192,79 +209,60 @@ module.exports = {
         }
     },
 
-    // deleteUser: async (req, res) => {
-    //     try {
-    //         const user = req.user;
-
-    //         if (!user) {
-    //             return res.render('a-login', {
-    //                 title: "TYS",
-    //                 error: "User Not Found"
-    //             });
-    //         }
-
-    //         const user_id = req.params.user_id;
-    //         console.log(product_id);
-
-    //         const UserRecord = await models.CustomerModel.User.findByIdAndDelete({ _id: user_id });
-    //         console.log("Deleted Record: ", UserRecord);
-
-    //         const successMsg = `${product.name} -- Deleted Successfully`;
-    //         return res.status(200).json({ success: successMsg });
-    //     } catch (err) {
-    //         console.error(err);
-    //         const errorMsg = err.message || "Internal Server Error";
-    //         return res.status(500).json({ error: errorMsg });
-    //     }
-    // },
-
-    // Delete Category
     deleteUser: async (req, res) => {
         try {
-            const user_id = req.params.user_id;
-            console.log("Deleting User with ID:", user_id);
+            const user = req.user;
 
-            // Find and delete the product from the database
-            const deletedUser = await models.CustomerModel.User.findOneAndDelete({ _id: user_id });
-
-            if (!deletedUser) {
-                // product not found in the database
-                throw new Error('${} not found.');
+            if (!user) {
+                return res.render('a-login', {
+                    title: "TYS",
+                    error: "User Not Found"
+                });
             }
 
-            console.log(`${deletedUser.name} deleted successfully`);
+            console.log("Request URL: ", req.originalUrl);
+            console.log("Request Params: ", req.params);
+            const user_id = req.params.user_id;
+            console.log("UserID: ", user_id);
 
-            res.status(200).json({ message: `${deletedUser.name} deleted successfully` });
+            const UserRecord = await models.CustomerModel.User.findByIdAndDelete({ _id: user_id });
+            console.log("Deleted Record: ", UserRecord);
+
+            const successMsg = `${UserRecord.first_name} -- Deleted Successfully`;
+            return res.status(200).json({ success: successMsg });
         } catch (err) {
-            console.log(`There is an issue while deleting the ${deletedUser.name}.`);
-            console.log(err.message);
-            res.status(400).send(err.message);
+            console.error(err);
+            const errorMsg = err.message || "Internal Server Error";
+            return res.status(500).json({ error: errorMsg });
         }
-    }
+    },
 
-    //   getProduct: async (req, res) => {
-    //     const referer = req.get('Referer');
-    //     try {
-    //       const user = req.user;
 
-    //       if (!user) {
-    //         res.render('a-login', {
-    //           title: "Advaxo",
-    //           error: "User Not Found"
-    //         })
-    //       }
+    /*  
+    getProduct: async (req, res) => {
+        const referer = req.get('Referer');
+        try {
+          const user = req.user;
 
-    //       const product_id = req.params.product_id;
+          if (!user) {
+            res.render('a-login', {
+              title: "Advaxo",
+              error: "User Not Found"
+            })
+          }
 
-    //       const product = await models.ProductModel.Product.findById(product_id);
+          const product_id = req.params.product_id;
 
-    //       console.log(product)
+          const product = await models.ProductModel.Product.findById(product_id);
 
-    //       res.json(product)
-    //     } catch (err) {
-    //       console.log(err)
-    //       res.redirect(`${referer}?error=${encodeURIComponent(err)}`)
-    //     }
-    //   }
+          console.log(product)
+
+          res.json(product)
+        } catch (err) {
+          console.log(err)
+          res.redirect(`${referer}?error=${encodeURIComponent(err)}`)
+        }
+      }
+        */
 
 }

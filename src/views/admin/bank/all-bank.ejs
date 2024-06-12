@@ -78,7 +78,8 @@
                                                                         <ul>
                                                                             <li>
                                                                                 <a href="/admin/bank/del-bank/<%= row._id %>"
-                                                                                    data-bs-original-title="" title="">
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#exampleModalToggle">
                                                                                     <i class="ri-delete-bin-line"></i>
 
                                                                                 </a>
@@ -156,15 +157,10 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header d-block text-center">
-                    <h5 class="modal-title w-100" id="exampleModalLabel22">Add New Expense</h5>
+                    <h5 class="modal-title w-100" id="exampleModalLabel22">You want to delete this Record</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <i class="fas fa-times"></i>
                     </button>
-                </div>
-                <div class="modal-body">
-                    <div class="remove-box">
-                        <p>You want to delete this Category</p>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">No</button>
@@ -204,43 +200,28 @@
     <!-- Delete Modal Box End -->
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
         $(document).ready(function () {
-            // Handle click event on the "Delete" link
             $('a[data-bs-toggle="modal"]').on('click', function () {
-                // Get the product ID from the link's href attribute
-                const productId = this.href.split('/').pop();
+                const bank_id = this.href.split('/').pop();
 
-                // Update the "Yes" button's data attribute with the product ID for reference when confirming deletion
-                $('#confirmDeleteBtn').data('category-id', productId);
+                $('#confirmDeleteBtn').data('bank_id', bank_id);
             });
 
-            // Handle click event on the "Yes" button inside the modal
             $('#confirmDeleteBtn').on('click', function () {
-                // Get the product ID from the data attribute
-                const productId = $(this).data('category-id');
+                const bank_id = $(this).data('bank_id');
 
-                // Make an AJAX request to the server to delete the product
                 $.ajax({
                     method: 'DELETE',
-                    url: `/admin/inventory/delete-product/${productId}`,
+                    url: `/admin/bank/del-bank/${bank_id}`,
                     success: function (data) {
-                        // If the deletion is successful, you can handle the response or reload the page
-                        console.log(data); // Optional: Log the server response
-                        if (data.error) {
-                            // Handle error message
-                            alert(data.error);
-                        } else {
-                            // Product deleted successfully
-                            window.location.reload(); // Reload the page to reflect the changes
-                        }
+                        console.log(data);
+                        window.location.reload();
                     },
                     error: function (error) {
-                        // Handle errors if any
                         console.error(error);
-                        alert(`${error.responseText}`);
-                        window.location.reload(); // Reload the page to reflect the changes
-                    },
+                    }
                 });
             });
         });

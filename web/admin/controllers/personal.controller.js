@@ -10,18 +10,21 @@ module.exports = {
     //GET Add Personal
     getAddPersonal: async (req, res) => {
         try {
-            // const user = req.user;
+            const user = req.user;
 
-            // if (!user) {
-            //     res.render('a-login', {
-            //         title: "TYS",
-            //         error: "User Not Found"
-            //     })
-            // }
+            if (!user) {
+                res.render('a-login', {
+                    title: "TYS",
+                    error: "User Not Found"
+                })
+            }
+
+            const userAll = await models.CustomerModel.User.find().exec();
 
             res.render('admin/personal/add-personal', {
                 title: "TYS",
                 user,
+                userAll,
                 error: "Add New Personal"
             })
         } catch (err) {
@@ -161,6 +164,33 @@ module.exports = {
 
         }
     },
+
+    deletePersonal: async (req, res) => {
+        try {
+            const user = req.user;
+
+            if (!user) {
+                return res.render('a-login', {
+                    title: "TYS",
+                    error: "User Not Found"
+                });
+            }
+
+            const personal_id = req.params.personal_id;
+            console.log("ID: ", personal_id);
+
+            const UserRecord = await models.CustomerModel.Personal.findByIdAndDelete({ _id: personal_id });
+            console.log("Deleted Record: ", UserRecord);
+
+            const successMsg = `${UserRecord.first_name} -- Deleted Successfully`;
+            return res.status(200).json({ success: successMsg });
+        } catch (err) {
+            console.error(err);
+            const errorMsg = err.message || "Internal Server Error";
+            return res.status(500).json({ error: errorMsg });
+        }
+    },
+
 
 }
 

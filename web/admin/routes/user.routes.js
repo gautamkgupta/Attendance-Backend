@@ -8,8 +8,8 @@ router.get('/edit-user/:user_id', AuthMiddleware.authenticateToken, UserControll
 
 // router.get('/user/:user_id', AuthMiddleware.authenticateToken, UserController.getProduct);
 
-router.post('/edit-user/:user_id', AuthMiddleware.authenticateToken, MulterMiddleware.upload.fields([{ name: 'image_logo', maxCount: 1 }, { name: 'images', maxCount: 1 }]), UserController.postUpdateUser);
-router.post('/add-user', AuthMiddleware.authenticateToken, MulterMiddleware.upload.fields([{ name: 'image_logo', maxCount: 1 }, { name: 'images', maxCount: 1 }]), UserController.postAddUser);
+router.post('/edit-user/:user_id', MulterMiddleware.upload.fields([{ name: 'profile_url', maxCount: 1 }]), UserController.postUpdateUser);
+router.post('/add-user', AuthMiddleware.authenticateToken, MulterMiddleware.upload.fields([{ name: 'profile_url', maxCount: 1 }]), UserController.postAddUser);
 
 router.delete('/del-user/:user_id', AuthMiddleware.authenticateToken, UserController.deleteUser);
 module.exports = router;

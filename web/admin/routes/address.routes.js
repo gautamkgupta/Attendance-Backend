@@ -11,6 +11,6 @@ router.get('/edit-address/:address_id', AuthMiddleware.authenticateToken, Addres
 router.post('/edit-address/:address_id', AuthMiddleware.authenticateToken, AddressController.postUpdateAddress);
 router.post('/add-address', AuthMiddleware.authenticateToken, AddressController.postAddAddress);
 
-// router.delete('/del-address/:address_id', AuthMiddleware.authenticateToken, AddressController.deleteAddress);
+router.delete('/del-address/:address_id', AuthMiddleware.authenticateToken, AddressController.deleteAddress);
 module.exports = router;
 

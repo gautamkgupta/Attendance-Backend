@@ -27,15 +27,31 @@
                                                 <label class="form-label-title col-lg-3 col-md-3 mb-0">
                                                     Email-Id</label>
                                                 <div class="col-md-9 col-lg-9">
-                                                    <input class="form-control" type="email" name="email"
-                                                        placeholder="Enter your Email" required>
+                                                    <select class="js-example-basic-single w-100" name="email"
+                                                        id="unit">
+                                                        <option
+                                                            style="font-size: calc(14px +(16 - 14)*((100vw - 320px) /(1920 - 320)));"
+                                                            value="none" disabled selected>-- Select Email ID --
+                                                        </option>
+
+                                                        <% if (userAll && userAll.length> 0) { %>
+                                                            <% userAll.forEach((row, index)=> { %>
+                                                                <option
+                                                                    style="font-size: calc(14px +(16 - 14)*((100vw - 320px) /(1920 - 320)));"
+                                                                    value="<%= row.email %>">
+                                                                    <%= row.email %>
+                                                                </option>
+                                                                <% }) %>
+                                                                    <% } %>
+
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="mb-4 row align-items-center">
                                                 <label class="form-label-title col-lg-3 col-md-3 mb-0">
                                                     Check In</label>
                                                 <div class="col-md-9 col-lg-9">
-                                                    <input class="form-control" type="text" name="check_in"
+                                                    <input class="form-control" type="time" name="check_in"
                                                         placeholder="Enter your Check In" required>
                                                 </div>
                                             </div>
@@ -44,7 +60,7 @@
                                                 <label class="form-label-title col-lg-3 col-md-3 mb-0">
                                                     Check Out</label>
                                                 <div class="col-md-9 col-lg-9">
-                                                    <input class="form-control" type="text"
+                                                    <input class="form-control" type="time"
                                                         placeholder="Enter your Check Out" name="check_out" required>
                                                 </div>
                                             </div>
@@ -54,7 +70,7 @@
                                                     Hours
                                                 </label>
                                                 <div class="col-md-9 col-lg-9">
-                                                    <input class="form-control" type="text" name="total_hour"
+                                                    <input class="form-control" type="time" name="total_hour"
                                                         placeholder="Enter your Total Hours" required>
                                                 </div>
                                             </div>
@@ -63,8 +79,49 @@
                                                 <label class="col-lg-3 col-md-3 col-form-label form-label-title">Day
                                                 </label>
                                                 <div class="col-md-9 col-lg-9">
-                                                    <input class="form-control" type="text" name="day"
-                                                        placeholder="Enter your Day" required>
+                                                    <select class="js-example-basic-single w-100" name="day" id="day">
+                                                        <option
+                                                            style="font-size: calc(14px +(16 - 14)*((100vw - 320px) /(1920 - 320)));"
+                                                            value="none" disabled selected>-- Select Day --
+                                                        </option>
+
+                                                        <option
+                                                            style="font-size: calc(14px +(16 - 14)*((100vw - 320px) /(1920 - 320)));"
+                                                            value="SunDay">
+                                                            SunDay
+                                                        </option>
+                                                        <option
+                                                            style="font-size: calc(14px +(16 - 14)*((100vw - 320px) /(1920 - 320)));"
+                                                            value="Monday">
+                                                            MonDay
+                                                        </option>
+                                                        <option
+                                                            style="font-size: calc(14px +(16 - 14)*((100vw - 320px) /(1920 - 320)));"
+                                                            value="TuesDay">
+                                                            TuesDay
+                                                        </option>
+                                                        <option
+                                                            style="font-size: calc(14px +(16 - 14)*((100vw - 320px) /(1920 - 320)));"
+                                                            value="Wednesday">
+                                                            Wednesday
+                                                        </option>
+                                                        <option
+                                                            style="font-size: calc(14px +(16 - 14)*((100vw - 320px) /(1920 - 320)));"
+                                                            value="ThusDay">
+                                                            ThusDay
+                                                        </option>
+                                                        <option
+                                                            style="font-size: calc(14px +(16 - 14)*((100vw - 320px) /(1920 - 320)));"
+                                                            value="FriDay">
+                                                            FriDay
+                                                        </option>
+                                                        <option
+                                                            style="font-size: calc(14px +(16 - 14)*((100vw - 320px) /(1920 - 320)));"
+                                                            value="SaturDay">
+                                                            SaturDay
+                                                        </option>
+
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="mb-4 row align-items-center">
@@ -88,8 +145,29 @@
                                                 <label class="col-lg-3 col-md-3 col-form-label form-label-title">Status
                                                 </label>
                                                 <div class="col-md-9 col-lg-9">
-                                                    <input class="form-control" type="text" name="status"
-                                                        placeholder="Enter your Status" required>
+                                                    <select class="js-example-basic-single w-100" name="day" id="day">
+                                                        <option
+                                                            style="font-size: calc(14px +(16 - 14)*((100vw - 320px) /(1920 - 320)));"
+                                                            value="none" disabled selected>-- Status --
+                                                        </option>
+
+                                                        <option
+                                                            style="font-size: calc(14px +(16 - 14)*((100vw - 320px) /(1920 - 320)));"
+                                                            value="Present">
+                                                            Present
+                                                        </option>
+                                                        <option
+                                                            style="font-size: calc(14px +(16 - 14)*((100vw - 320px) /(1920 - 320)));"
+                                                            value="Absent">
+                                                            Absent
+                                                        </option>
+                                                        <option
+                                                            style="font-size: calc(14px +(16 - 14)*((100vw - 320px) /(1920 - 320)));"
+                                                            value="Late">
+                                                            Late
+                                                        </option>
+
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="mb-4 row align-items-center">
@@ -104,8 +182,8 @@
                                                 <label class="col-lg-3 col-md-3 col-form-label form-label-title">Comment
                                                 </label>
                                                 <div class="col-md-9 col-lg-9">
-                                                    <input class="form-control" type="text" name="comment"
-                                                        placeholder="Enter your Comment" required>
+                                                    <textarea class="form-control" type="text" rows="4" name="comment"
+                                                        placeholder="Enter your Comment" required></textarea>
                                                 </div>
                                             </div>
 

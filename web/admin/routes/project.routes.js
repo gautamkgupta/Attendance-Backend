@@ -11,6 +11,6 @@ router.get('/edit-project/:project_id', AuthMiddleware.authenticateToken, Projec
 router.post('/edit-project/:project_id', AuthMiddleware.authenticateToken, ProjectController.postUpdateProject);
 router.post('/add-project', AuthMiddleware.authenticateToken, ProjectController.postAddProject);
 
-// router.delete('/del-project/:project_id', AuthMiddleware.authenticateToken, ProjectController.deleteProjectExperience);
+router.delete('/del-project/:project_id', AuthMiddleware.authenticateToken, ProjectController.deleteProject);
 
 module.exports = router;

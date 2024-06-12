@@ -11,6 +11,6 @@ router.get('/edit-attendance/:attendance_id', AuthMiddleware.authenticateToken, 
 router.post('/edit-attendance/:attendance_id', AuthMiddleware.authenticateToken, AttendanceController.postUpdateAttendance);
 router.post('/add-attendance', AuthMiddleware.authenticateToken, AttendanceController.postAddAttendance);
 
-// router.delete('/del-attendance/:attendance_id', AuthMiddleware.authenticateToken, AttendanceController.deleteAttendance);
+router.delete('/del-attendance/:attendance_id', AuthMiddleware.authenticateToken, AttendanceController.deleteAttendance);
 module.exports = router;
 

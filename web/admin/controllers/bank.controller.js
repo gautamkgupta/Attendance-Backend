@@ -18,9 +18,12 @@ module.exports = {
                 })
             }
 
+            const userAll = await models.CustomerModel.User.find().exec();
+
             res.render('admin/bank/add-bank', {
                 title: "TYS",
                 user,
+                userAll,
                 error: "Add New Project"
             })
         } catch (err) {
@@ -170,6 +173,33 @@ module.exports = {
 
         }
     },
+
+    deleteBank: async (req, res) => {
+        try {
+            const user = req.user;
+
+            if (!user) {
+                return res.render('a-login', {
+                    title: "TYS",
+                    error: "User Not Found"
+                });
+            }
+
+            const bank_id = req.params.bank_id;
+            console.log("ID: ", bank_id);
+
+            const UserRecord = await models.CustomerModel.Bank.findByIdAndDelete({ _id: bank_id });
+            console.log("Deleted Record: ", UserRecord);
+
+            const successMsg = `${UserRecord.first_name} -- Deleted Successfully`;
+            return res.status(200).json({ success: successMsg });
+        } catch (err) {
+            console.error(err);
+            const errorMsg = err.message || "Internal Server Error";
+            return res.status(500).json({ error: errorMsg });
+        }
+    },
+
 
 
 }

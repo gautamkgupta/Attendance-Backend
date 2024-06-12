@@ -18,9 +18,12 @@ module.exports = {
                 })
             }
 
+            const userAll = await models.CustomerModel.User.find().exec();
+
             res.render('admin/education/add-education', {
                 title: "TYS",
                 user,
+                userAll,
                 error: "Add New Education"
             })
         } catch (err) {
@@ -166,6 +169,33 @@ module.exports = {
 
         }
     },
+
+    deleteEducation: async (req, res) => {
+        try {
+            const user = req.user;
+
+            if (!user) {
+                return res.render('a-login', {
+                    title: "TYS",
+                    error: "User Not Found"
+                });
+            }
+
+            const education_id = req.params.education_id;
+            console.log("ID: ", education_id);
+
+            const UserRecord = await models.CustomerModel.Education.findByIdAndDelete({ _id: education_id });
+            console.log("Deleted Record: ", UserRecord);
+
+            const successMsg = `${UserRecord.first_name} -- Deleted Successfully`;
+            return res.status(200).json({ success: successMsg });
+        } catch (err) {
+            console.error(err);
+            const errorMsg = err.message || "Internal Server Error";
+            return res.status(500).json({ error: errorMsg });
+        }
+    },
+
 
 
 }

@@ -11,6 +11,6 @@ router.get('/edit-timeSheet/:TimeSheet_id', AuthMiddleware.authenticateToken, Ti
 router.post('/edit-timeSheet/:TimeSheet_id', AuthMiddleware.authenticateToken, TimeSheetController.postUpdateTimeSheet);
 router.post('/add-timeSheet', AuthMiddleware.authenticateToken, TimeSheetController.postAddTimeSheet);
 
-// router.delete('/del-timeSheet/:TimeSheet_id', AuthMiddleware.authenticateToken, TimeSheetController.deleteTimeSheetExperience);
+router.delete('/del-timeSheet/:TimeSheet_id', AuthMiddleware.authenticateToken, TimeSheetController.deleteTimeSheet);
 
 module.exports = router;

@@ -11,6 +11,6 @@ router.get('/edit-work/:work_id', AuthMiddleware.authenticateToken, WorkExperien
 router.post('/edit-work/:work_id', AuthMiddleware.authenticateToken, WorkExperienceController.postUpdateWorkExperience);
 router.post('/add-work', AuthMiddleware.authenticateToken, WorkExperienceController.postAddWorkExperience);
 
-// router.delete('/del-work/:work_id', AuthMiddleware.authenticateToken, WorkExperienceController.deleteWorkExperience);
+router.delete('/del-work/:work_id', AuthMiddleware.authenticateToken, WorkExperienceController.deleteWorkExperience);
 
 module.exports = router;

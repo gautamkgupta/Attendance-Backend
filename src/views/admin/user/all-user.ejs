@@ -26,6 +26,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th style="text-align: center;">Sr No.</th>
+                                                            <th style="text-align: center;">UserId.</th>
                                                             <th style="text-align: center;">First Name</th>
                                                             <th style="text-align: center;">Last Name</th>
                                                             <th style="text-align: center;">profile URL</th>
@@ -42,6 +43,9 @@
                                                                 <tr>
                                                                     <td style="text-align: center;">
                                                                         <%= index +1 %>
+                                                                    </td>
+                                                                    <td style="text-align: center;">
+                                                                        <%= row._id %>
                                                                     </td>
                                                                     <td style="text-align: center;">
                                                                         <%= row.first_name %>
@@ -81,9 +85,9 @@
                                                                         <ul>
                                                                             <li>
                                                                                 <a href="/admin/user/del-user/<%= row._id %>"
-                                                                                    data-bs-original-title="" title="">
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#exampleModalToggle">
                                                                                     <i class="ri-delete-bin-line"></i>
-
                                                                                 </a>
                                                                             </li>
                                                                         </ul>
@@ -160,15 +164,10 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header d-block text-center">
-                    <h5 class="modal-title w-100" id="exampleModalLabel22">Add New Expense</h5>
+                    <h5 class="modal-title w-100" id="exampleModalLabel22">You want to delete this Record</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <i class="fas fa-times"></i>
                     </button>
-                </div>
-                <div class="modal-body">
-                    <div class="remove-box">
-                        <p>You want to delete this User</p>
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">No</button>
@@ -213,31 +212,32 @@
         $(document).ready(function () {
             // Handle click event on the "Delete" link
             $('a[data-bs-toggle="modal"]').on('click', function () {
-                // Get the branch ID from the link's href attribute
+                // Get the User ID from the link's href attribute
                 const user_id = this.href.split('/').pop();
+                // console.log("New UserId", user_id)
 
-                // Update the "Yes" button's data attribute with the branch ID for reference when confirming deletion
+                // Update the "Yes" button's data attribute with the User ID for reference when confirming deletion
                 $('#confirmDeleteBtn').data('user_id', user_id);
             });
 
             // Handle click event on the "Yes" button inside the modal
             $('#confirmDeleteBtn').on('click', function () {
-                // Get the branch ID from the data attribute
-                const user_id = $(this).data('User_id');
+                // Get the User ID from the data attribute
+                const user_id = $(this).data('user_id');
+                // console.log("New 1 UserId", user_id)
 
-                // Make an AJAX request to the server to delete the branch
+
+                // Make an AJAX request to the server to delete the User
                 $.ajax({
                     method: 'DELETE',
                     url: `/admin/user/del-user/${user_id}`,
                     success: function (data) {
-                        // If the deletion is successful, you can handle the response or reload the page
-                        console.log(data); // Optional: Log the server response
-                        window.location.reload(); // Reload the page to reflect the changes
+                        console.log(data);
+                        window.location.reload();
                     },
                     error: function (error) {
-                        // Handle errors if any
                         console.error(error);
-                    },
+                    }
                 });
             });
         });

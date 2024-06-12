@@ -11,16 +11,20 @@ module.exports = {
         try {
             const user = req.user;
 
-            // if (!user) {
-            //     res.render('a-login', {
-            //         title: "TYS",
-            //         error: "User Not Found"
-            //     })
-            // }
+            if (!user) {
+                res.render('a-login', {
+                    title: "TYS",
+                    error: "User Not Found"
+                })
+            }
+
+
+            const userAll = await models.CustomerModel.User.find().exec();
 
             res.render('admin/address/add-address', {
                 title: "TYS",
                 user,
+                userAll,
                 error: "Add New Address"
             })
         } catch (err) {
@@ -44,7 +48,7 @@ module.exports = {
                 })
             }
 
-            const Address = await models.CustomerModel.Address.find().exec()
+            const Address = await models.CustomerModel.Address.find().exec();
             // console.log("All Address: ", Address);
 
             res.render('admin/address/all-address', {
@@ -75,11 +79,10 @@ module.exports = {
             }
 
             const server = req.body;
-            // console.log(server);
 
             const AddressData = new models.CustomerModel.Address({
                 _id: new mongoose.Types.ObjectId(),
-                email: user.email,
+                email: server.email,
                 address_type: server.address_type,
                 address_1: server.address_1,
                 address_2: server.address_2,
@@ -171,6 +174,31 @@ module.exports = {
         }
     },
 
+    deleteAddress: async (req, res) => {
+        try {
+            const user = req.user;
+
+            if (!user) {
+                return res.render('a-login', {
+                    title: "TYS",
+                    error: "User Not Found"
+                });
+            }
+
+            const address_id = req.params.address_id;
+            console.log("UserID: ", address_id);
+
+            const UserRecord = await models.CustomerModel.Address.findByIdAndDelete({ _id: address_id });
+            console.log("Deleted Record: ", UserRecord);
+
+            const successMsg = `${UserRecord.first_name} -- Deleted Successfully`;
+            return res.status(200).json({ success: successMsg });
+        } catch (err) {
+            console.error(err);
+            const errorMsg = err.message || "Internal Server Error";
+            return res.status(500).json({ error: errorMsg });
+        }
+    },
 
 }
 

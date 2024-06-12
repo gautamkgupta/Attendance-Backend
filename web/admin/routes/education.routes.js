@@ -11,6 +11,6 @@ router.get('/edit-education/:education_id', AuthMiddleware.authenticateToken, Ed
 router.post('/edit-education/:education_id', AuthMiddleware.authenticateToken, EducationController.postUpdateEducation);
 router.post('/add-education', AuthMiddleware.authenticateToken, EducationController.postAddEducation);
 
-// router.delete('/del-education/:education_id', AuthMiddleware.authenticateToken, EducationController.deleteEducationExperience);
+router.delete('/del-education/:education_id', AuthMiddleware.authenticateToken, EducationController.deleteEducation);
 
 module.exports = router;

@@ -18,9 +18,12 @@ module.exports = {
                 })
             }
 
+
+            const userAll = await models.CustomerModel.User.find().exec();
             res.render('admin/project/add-project', {
                 title: "TYS",
                 user,
+                userAll,
                 error: "Add New Project"
             })
         } catch (err) {
@@ -82,7 +85,7 @@ module.exports = {
                 _id: new mongoose.Types.ObjectId(),
                 email: server.email,
                 project_title: server.project_title,
-                project_desc: server.project_desc,
+                project_desc: server.project_desc.trim(),
                 start_date: server.start_date,
                 end_date: server.end_date,
             });
@@ -148,7 +151,7 @@ module.exports = {
             // console.log("Update Record: ", UpdateRecord);
 
             UpdateRecord.project_title = server.project_title;
-            UpdateRecord.project_desc = server.project_desc;
+            UpdateRecord.project_desc = server.project_desc.trim();
             UpdateRecord.start_date = server.start_date;
             UpdateRecord.end_date = server.end_date;
 
@@ -162,6 +165,32 @@ module.exports = {
             console.log("Error: ", err);
             res.redirect(`/admin/project/edit-project?error=${encodeURIComponent(err)}`);
 
+        }
+    },
+
+    deleteProject: async (req, res) => {
+        try {
+            const user = req.user;
+
+            if (!user) {
+                return res.render('a-login', {
+                    title: "TYS",
+                    error: "User Not Found"
+                });
+            }
+
+            const project_id = req.params.project_id;
+            console.log("ID: ", project_id);
+
+            const UserRecord = await models.CustomerModel.Project.findByIdAndDelete({ _id: project_id });
+            console.log("Deleted Record: ", UserRecord);
+
+            const successMsg = `${UserRecord.first_name} -- Deleted Successfully`;
+            return res.status(200).json({ success: successMsg });
+        } catch (err) {
+            console.error(err);
+            const errorMsg = err.message || "Internal Server Error";
+            return res.status(500).json({ error: errorMsg });
         }
     },
 

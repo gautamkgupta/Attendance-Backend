@@ -11,6 +11,6 @@ router.get('/edit-personal/:personal_id', AuthMiddleware.authenticateToken, Pers
 router.post('/edit-personal/:personal_id', AuthMiddleware.authenticateToken, PersonalController.postUpdatePersonal);
 router.post('/add-personal', AuthMiddleware.authenticateToken, PersonalController.postAddPersonal);
 
-// router.delete('/del-personal/:personal_id', AuthMiddleware.authenticateToken, PersonalController.deletePersonal);
+router.delete('/del-personal/:personal_id', AuthMiddleware.authenticateToken, PersonalController.deletePersonal);
 module.exports = router;
 

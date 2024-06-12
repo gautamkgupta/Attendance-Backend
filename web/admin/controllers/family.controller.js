@@ -18,13 +18,12 @@ module.exports = {
                 })
             }
 
-            // const products = await models.AddressModel.find().sort({ created_date: -1 });
-            // const address = await models.CustomerModel.Address.find().sort({ created_date: -1 });
-            // console.log(address);
+            const userAll = await models.CustomerModel.User.find().exec();
 
             res.render('admin/family/add-family', {
                 title: "TYS",
                 user,
+                userAll,
                 error: "Add New Family"
             })
         } catch (err) {
@@ -170,5 +169,32 @@ module.exports = {
 
         }
     },
+
+    deleteFamily: async (req, res) => {
+        try {
+            const user = req.user;
+
+            if (!user) {
+                return res.render('a-login', {
+                    title: "TYS",
+                    error: "User Not Found"
+                });
+            }
+
+            const family_id = req.params.family_id;
+            console.log("ID: ", family_id);
+
+            const UserRecord = await models.CustomerModel.Family.findByIdAndDelete({ _id: family_id });
+            console.log("Deleted Record: ", UserRecord);
+
+            const successMsg = `${UserRecord.first_name} -- Deleted Successfully`;
+            return res.status(200).json({ success: successMsg });
+        } catch (err) {
+            console.error(err);
+            const errorMsg = err.message || "Internal Server Error";
+            return res.status(500).json({ error: errorMsg });
+        }
+    },
+
 
 }

@@ -1,4 +1,4 @@
-<%- include('../../partials/main', { pageTitle: 'Add new Product' }) %>
+<%- include('../../partials/main', { pageTitle: 'Add new User' }) %>
 
     <div class="page-body">
 
@@ -15,7 +15,7 @@
                                 </div>
                             </div>
                             <form class="theme-form theme-form-2 mega-form" id="productForm" method="POST"
-                                action="/admin/user/add-user">
+                                enctype="multipart/form-data" action="/admin/user/add-user">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="card-header-2">
@@ -48,10 +48,10 @@
                                                     <input type="file" name="profile_url" id="customFileEg1"
                                                         class="form-control form-choose"
                                                         accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"
-                                                        required oninvalid="document.getElementById('en-link').click()">
+                                                        oninvalid="document.getElementById('en-link').click()">
                                                     <div class="custom-file">
                                                         <div class="text-center">
-                                                            <img style="height: 290px;border: 1px solid;border-radius: 10px;width: 80%;margin-top:2rem;"
+                                                            <img style="height: 200px;border: 1px solid;border-radius: 10px;width: 50%;margin-top:2rem"
                                                                 id="viewer" src="/public/images/img2.jpg" alt="image" />
                                                         </div>
                                                     </div>
@@ -63,16 +63,17 @@
                                                 </label>
                                                 <div class="col-md-9 col-lg-9">
                                                     <input class="form-control" type="email" name="email"
-                                                        placeholder="Enter Email" required>
+                                                        placeholder="Enter your Email" required>
                                                 </div>
                                             </div>
 
                                             <div class="mb-4 row align-items-center">
                                                 <label class="col-lg-3 col-md-3 col-form-label form-label-title">Phone
-                                                </label>
+                                                    Number</label>
                                                 <div class="col-md-9 col-lg-9">
-                                                    <input class="form-control" type="text" name="phone"
-                                                        placeholder="Enter Phone Number" required>
+                                                    <input class="form-control" type="tel" name="phone" pattern="\d{10}"
+                                                        minlength="10" maxlength="10" placeholder="Enter Phone Number"
+                                                        required>
                                                 </div>
                                             </div>
 
@@ -82,7 +83,8 @@
                                                 </label>
                                                 <div class="col-md-9 col-lg-9">
                                                     <input class="form-control" type="password" name="password"
-                                                        placeholder="Enter Password" required>
+                                                        minlength="8" maxlength="15" placeholder="Enter Password"
+                                                        required>
                                                 </div>
                                             </div>
 
@@ -110,35 +112,8 @@
         <%- include('../../partials/footer') %>
             <!-- footer En -->
     </div>
-    <div class="modal fade theme-modal remove-coupon" id="exampleModalToggle2" aria-hidden="true" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-center" id="exampleModalLabel12">Done!</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="remove-box text-center">
-                        <div class="wrapper">
-                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
-                                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
-                            </svg>
-                        </div>
-                        <h4 class="text-content">It's Removed.</h4>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
-
-    <!-- <script>
+    <script>
         // Update Total Area
         function updateTotalArea() {
             var width = parseFloat(document.getElementById('width').value) || 0; // Default to 1 if width is 0
@@ -182,179 +157,44 @@
         document.getElementById('height').addEventListener('input', updateRate);
         document.getElementById('quantity').addEventListener('input', updateRate);
         document.getElementById('total_amount').addEventListener('input', updateRate);
-    </script> -->
-
-    <!-- Delete Modal Box Start -->
-    <div class="modal fade theme-modal remove-coupon" id="exampleModalToggle" aria-hidden="true" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header d-block text-center">
-                    <h5 class="modal-title w-100" id="exampleModalLabel22">Add New Expense</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="remove-box">
-                        <p>You want to delete this Category</p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">No</button>
-                    <button type="button" class="btn btn-animation btn-md fw-bold" id="confirmDeleteBtn"
-                        data-bs-target="#exampleModalToggle2" data-bs-toggle="modal"
-                        data-bs-dismiss="modal">Yes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade theme-modal remove-coupon" id="exampleModalToggle2" aria-hidden="true" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-center" id="exampleModalLabel12">Done!</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="remove-box text-center">
-                        <div class="wrapper">
-                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
-                                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
-                            </svg>
-                        </div>
-                        <h4 class="text-content">It's Removed.</h4>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Delete Modal Box End -->
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- <script>
-        function validateFloat(floatField) {
-            // Remove any non-numeric characters (including '.') from the input
-            floatField.value = floatField.value.replace(/[^0-9.]/g, '');
-
-            // Parse the entered value as a float
-            var enteredValue = parseFloat(floatField.value);
-
-            // Display an error message if the entered value is not a valid number or less than or equal to 0
-            var errorMessage = document.getElementById("errorMessage");
-            if (isNaN(enteredValue) || enteredValue <= 0) {
-                errorMessage.textContent = "Please enter a valid number greater than 0.";
-                document.getElementById("confirmStatusChange").disabled = true;
-            } else {
-                errorMessage.textContent = "";
-                document.getElementById("confirmStatusChange").disabled = false;
-            }
-        }
-    </script> -->
 
     <script>
-        $(document).ready(function () {
-            // Handle click event on the "Delete" link
-            $('a[data-bs-toggle="modal"]').on('click', function () {
-                // Get the category ID from the link's href attribute
-                const categoryId = this.href.split('/').pop();
+        function readURL(input, viewer_id) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
 
-                // Update the "Yes" button's data attribute with the category ID for reference when confirming deletion
-                $('#confirmDeleteBtn').data('category-id', categoryId);
-            });
+                reader.onload = function (e) {
+                    $('#' + viewer_id).attr('src', e.target.result);
+                }
 
-            // Handle click event on the "Yes" button inside the modal
-            $('#confirmDeleteBtn').on('click', function () {
-                // Get the category ID from the data attribute
-                const categoryId = $(this).data('category-id');
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
 
-                // Make an AJAX request to the server to delete the category
-                $.ajax({
-                    method: 'DELETE',
-                    url: `/admin/user/delete-user/${categoryId}`,
-                    success: function (data) {
-                        // If the deletion is successful, you can handle the response or reload the page
-                        console.log(data); // Optional: Log the server response
-                        window.location.reload(); // Reload the page to reflect the changes
-                    },
-                    error: function (error) {
-                        // Handle errors if any
-                        console.error(error);
-                        window.location.reload(); // Reload the page to reflect the changes
-                    },
-                });
-            });
+        $("#customFileEg1").change(function () {
+            readURL(this, 'viewer');
+        });
+        $("#customFileEg2").change(function () {
+            readURL(this, 'viewer2');
         });
     </script>
+    <script>
+        function validateInput(inputField) {
+            // Remove any non-numeric characters from the input
+            inputField.value = inputField.value.replace(/[^0-9]/g, '');
 
-    <!-- <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var inputField = document.getElementById('productInput');
-            var dropdownMenu = document.getElementById('productDropdown');
-            var options = dropdownMenu.getElementsByTagName('li');
-
-            inputField.addEventListener('input', function () {
-                var filter = inputField.value.toLowerCase();
-                for (var i = 0; i < options.length; i++) {
-                    var textValue = options[i].textContent || options[i].innerText;
-                    if (textValue.toLowerCase().indexOf(filter) > -1) {
-                        options[i].style.display = "";
-                    } else {
-                        options[i].style.display = "none";
-                    }
-                }
-            });
-
-            inputField.addEventListener('click', function () {
-                toggleDropdown();
-            });
-
-            inputField.addEventListener('focus', function () {
-                toggleDropdown();
-            });
-
-            dropdownMenu.addEventListener('click', function (event) {
-                if (event.target.tagName === 'LI') {
-                    inputField.value = event.target.textContent;
-                    toggleDropdown();
-                }
-            });
-
-            function toggleDropdown() {
-                if (dropdownMenu.style.display === 'none') {
-                    dropdownMenu.style.display = 'block';
-                } else {
-                    dropdownMenu.style.display = 'none';
-                }
+            // Display an error message if input is empty
+            var errorMessage = document.getElementById("errorMessage");
+            if (inputField.value === "") {
+                errorMessage.textContent = "Please enter a number.";
+            } else {
+                errorMessage.textContent = "";
             }
-        });
-
-    </script> -->
-
-    <!-- <script>
-        $(document).ready(function () {
-            // Add event listener to unit select element
-            $('#unit').on('change', function () {
-                var unitValue = $(this).val();
-                // Check the selected unit value
-                if (unitValue === 'SQRFT') {
-                    console.log("changes to sqrft")
-                    // Enable width, height, and area inputs
-                    $('#width, #height, #total_area').prop('disabled', false);
-                } else if (unitValue === 'NOS') {
-                    console.log("changes to nos")
-                    // Disable width, height, and area inputs
-                    $('#width, #height, #total_area').prop('disabled', true);
-                }
-            });
-        });
-    </script> -->
-
+        }
+    </script>
 
     <%- include('../../partials/end') %>

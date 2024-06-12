@@ -18,9 +18,11 @@ module.exports = {
                 })
             }
 
+            const userAll = await models.CustomerModel.User.find().exec();
             res.render('admin/work/add-work', {
                 title: "TYS",
                 user,
+                userAll,
                 error: "Add New Work Experience"
             })
         } catch (err) {
@@ -167,6 +169,32 @@ module.exports = {
             console.log("Error: ", err);
             res.redirect(`/admin/work/edit-work?error=${encodeURIComponent(err)}`);
 
+        }
+    },
+
+    deleteWorkExperience: async (req, res) => {
+        try {
+            const user = req.user;
+
+            if (!user) {
+                return res.render('a-login', {
+                    title: "TYS",
+                    error: "User Not Found"
+                });
+            }
+
+            const work_id = req.params.work_id;
+            console.log("ID: ", work_id);
+
+            const UserRecord = await models.CustomerModel.WorkExperience.findByIdAndDelete({ _id: work_id });
+            console.log("Deleted Record: ", UserRecord);
+
+            const successMsg = `${UserRecord.first_name} -- Deleted Successfully`;
+            return res.status(200).json({ success: successMsg });
+        } catch (err) {
+            console.error(err);
+            const errorMsg = err.message || "Internal Server Error";
+            return res.status(500).json({ error: errorMsg });
         }
     },
 

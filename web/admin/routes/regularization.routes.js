@@ -11,6 +11,6 @@ router.get('/edit-regularization/:Regularization_id', AuthMiddleware.authenticat
 router.post('/edit-regularization/:Regularization_id', AuthMiddleware.authenticateToken, RegularizationController.postUpdateRegularization);
 router.post('/add-regularization', AuthMiddleware.authenticateToken, RegularizationController.postAddRegularization);
 
-// router.delete('/del-regularization/:Regularization_id', AuthMiddleware.authenticateToken, RegularizationController.deleteRegularizationExperience);
+router.delete('/del-regularization/:Regularization_id', AuthMiddleware.authenticateToken, RegularizationController.deleteRegularization);
 
 module.exports = router;
