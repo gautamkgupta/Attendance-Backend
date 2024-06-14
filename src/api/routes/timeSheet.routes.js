@@ -3,6 +3,7 @@ const router = require('express').Router();
 const { TimeSheetController } = require('../controllers');
 
 router.get("/get", TimeSheetController.getTimeSheet);
+router.post("/postData", TimeSheetController.postTimeSheet);
 
 
 module.exports = router;

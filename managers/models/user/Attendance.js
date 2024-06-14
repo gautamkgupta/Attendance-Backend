@@ -13,7 +13,7 @@ const AttendanceSchema = new mongoose.Schema({
     },
     check_out: {
         type: String,
-        required: true,
+        // required: true,
     },
     total_hour: {
         type: String,

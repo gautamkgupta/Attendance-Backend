@@ -85,7 +85,7 @@ module.exports = {
                 _id: new mongoose.Types.ObjectId(),
                 email: server.email,
                 university_name: server.university_name,
-                company_name: server.company_name,
+                course_name: server.course_name,
                 desc: server.desc,
                 start_date: server.start_date,
                 end_date: server.end_date,
@@ -152,7 +152,7 @@ module.exports = {
             // console.log("Update Record: ", UpdateRecord);
 
             UpdateRecord.university_name = server.university_name;
-            UpdateRecord.company_name = server.company_name;
+            UpdateRecord.course_name = server.course_name;
             UpdateRecord.desc = server.desc;
             UpdateRecord.start_date = server.start_date;
             UpdateRecord.end_date = server.end_date;

@@ -3,6 +3,7 @@ const router = require('express').Router();
 const { TaskListController } = require('../controllers');
 
 router.get("/get", TaskListController.getTaskList);
+router.post("/postData", TaskListController.postTaskList);
 
 
 module.exports = router;

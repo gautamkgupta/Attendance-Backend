@@ -84,9 +84,14 @@ module.exports = {
             // Check if the email already exists
             const existingUser = await models.CustomerModel.User.findOne({ email: server.email });
             if (existingUser) {
-                // return res.status(400).json({ message: "Email Already Used!.." });
-                // console.log(Email Already Used!..);
                 const errorMsg = 'Email Already Used!..';
+                res.redirect(`/admin/user/add-user?error=${encodeURIComponent(errorMsg)}`);
+            }
+
+            // Check if the phone already exists
+            const existingphone = await models.CustomerModel.User.findOne({ phone: server.phone });
+            if (existingphone) {
+                const errorMsg = 'Phone Already Used!..';
                 res.redirect(`/admin/user/add-user?error=${encodeURIComponent(errorMsg)}`);
             }
 
@@ -166,7 +171,7 @@ module.exports = {
 
             const server = req.body;
             // console.log(server)
-            const user_id = req.params.user_id;
+            const user_id = req.params.userId;
             const UserRecord = await models.CustomerModel.User.findById(user_id);
 
             if (!UserRecord) {

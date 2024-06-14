@@ -26,7 +26,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th style="text-align: center;">Sr No.</th>
-                                                            <th style="text-align: center;">UserId.</th>
+                                                            <!-- <th style="text-align: center;">UserId.</th> -->
                                                             <th style="text-align: center;">First Name</th>
                                                             <th style="text-align: center;">Last Name</th>
                                                             <th style="text-align: center;">profile URL</th>
@@ -44,9 +44,9 @@
                                                                     <td style="text-align: center;">
                                                                         <%= index +1 %>
                                                                     </td>
-                                                                    <td style="text-align: center;">
+                                                                    <!-- <td style="text-align: center;">
                                                                         <%= row._id %>
-                                                                    </td>
+                                                                    </td> -->
                                                                     <td style="text-align: center;">
                                                                         <%= row.first_name %>
                                                                     </td>
@@ -70,7 +70,6 @@
                                                                         <%= row.phone %>
                                                                     </td>
                                                                     <td style="text-align: center;">
-                                                                        <!-- <div> -->
                                                                         <div
                                                                             class="legend-indicator <%= row.status ? 'status-close' : 'status-danger' %>">
                                                                             <span id="statusText_<%= row._id %>">
@@ -78,10 +77,9 @@
                                                                                     : 'Disabled' %>
                                                                             </span>
                                                                         </div>
-                                                                        <!-- </div> -->
                                                                     </td>
 
-                                                                    <td>
+                                                                    <td class="d-flex justify-content-around">
                                                                         <ul>
                                                                             <li>
                                                                                 <a href="/admin/user/del-user/<%= row._id %>"

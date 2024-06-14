@@ -79,6 +79,13 @@ module.exports = {
             const server = req.body;
             // console.log(server);
 
+            // Check if the Family Details filled Or Not: 
+            const existingUser = await models.CustomerModel.Family.findOne({ email: server.email });
+            if (existingUser) {
+                const errorMsg = 'Your Family Details filled!..';
+                res.redirect(`/admin/family/add-family?error=${encodeURIComponent(errorMsg)}`);
+            }
+
             const FamilyData = new models.CustomerModel.Family({
                 _id: new mongoose.Types.ObjectId(),
                 email: server.email,

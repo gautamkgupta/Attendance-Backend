@@ -3,6 +3,7 @@ const router = require('express').Router();
 const { LeaveStatusController } = require('../controllers');
 
 router.get("/get", LeaveStatusController.getLeaveStatus);
+router.post("/postData", LeaveStatusController.postLeaveStatus);
 
 
 module.exports = router;

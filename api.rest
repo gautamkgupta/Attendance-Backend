@@ -15,7 +15,7 @@ content-type: application/json
     "last_name": "Demo",
     "email": "user@admin.com",
     "phone": 9876543210,
-    "password": "12341234",
+    "password": "12341234"
 }
 
 
@@ -37,24 +37,78 @@ content-type: application/json
 
 {
     "profile_url": "profile.jpg",
-    "first_name": "GK",
-    "last_name": "G",
-    "email": "demo@gmail.com",
-    "phone": 9876543210,
+    "first_name": "kumar",
+    "last_name": "Gupta",
+    "email": "kumar@gmail.com",
+    "phone": 9876543211,
     "password": "11223344",
     "is_active": 1
 }
 
 
 ###
-GET http://localhost:9001/api/user/view/6658619a230ee13d294d3a01
+GET http://localhost:9001/api/user/view/666adfe1620e3233261ee71e
 content-type: application/json
 
+
+###
+POST  http://localhost:9001/api/user/postUpdate/666adfe1620e3233261ee71e
+content-type: application/json
+
+{
+    "profile_url": "newprofile.jpg",
+    "first_name": "kumar",
+    "last_name": "Gupta",
+    "email": "kumar@gmail.com",
+    "phone": 9876543211,
+    "password": "11223344",
+    "is_active": 1
+}
 
 # Attendance API:
 
 ###
 GET http://localhost:9001/api/attendance/get
+content-type: application/json
+
+
+###
+POST  http://localhost:9001/api/attendance/postData
+content-type: application/json
+
+{
+    "email": "gautam@gmail.com",
+    "check_in": "09:30",
+    "check_out": "06:30",
+    "total_hour": "09:00",
+    "day": "FriDay",
+    "date": "Jun 14, 2024",
+    "location": "mumbai",
+    "status": "present",
+    "holiday": "NA",
+    "comment": "NA"
+}
+
+###
+POST  http://localhost:9001/api/attendance/postUpdate/666ae53326ea5218ccfe07a2
+content-type: application/json
+
+{
+    "email": "kumar@gmail.com",
+    "check_in": "09:21",
+    "check_out": "06:36",
+    "total_hour": "08:27",
+    "day": "Monday",
+    "date": "03/06/2024",
+    "location": "mumbai",
+    "status": "present",
+    "holiday": "NA",
+    "comment": "NA"
+}
+
+
+###
+GET http://localhost:9001/api/attendance/getId/Jun 14, 2024
 content-type: application/json
 
 
@@ -66,11 +120,36 @@ GET http://localhost:9001/api/family/get
 content-type: application/json
 
 
+###
+POST  http://localhost:9001/api/family/postData
+content-type: application/json
+
+{
+    "email": "gautam@gmail.com",
+    "father": "Dad",
+    "mother": "Mom",
+    "alternate_number": "9753113579"
+}
+
 # Education API:
 
 ###
 GET http://localhost:9001/api/education/get
 content-type: application/json
+
+
+###
+POST  http://localhost:9001/api/education/postData
+content-type: application/json
+
+{
+    "email": "gautam@gmail.com",
+    "university_name": "Mumbai University",
+    "course_name": "BE",
+    "start_date": "10/08/2019",
+    "end_date": "20/04/2023",
+    "desc": "NA"
+}
 
 
 # Professional API:
@@ -80,11 +159,79 @@ GET http://localhost:9001/api/professional/get
 content-type: application/json
 
 
+###
+POST  http://localhost:9001/api/professional/postData
+content-type: application/json
+
+{
+    "email": "gautam@gmail.com",
+    "designation": "Java Developer",
+    "experience": "2",
+    "skill": "NodeJS, ReactJS",
+    "cv_intro": "I am GKG",
+    "join_date": "10/06/2024",
+    "corfirm_date": "10/06/2024",
+    "termination_date": "",
+    "termination_reasons": "NA",
+    "desc": "NR"
+}
+
+# Project API:
+
+###
+GET http://localhost:9001/api/project/get
+content-type: application/json
+
+
+###
+POST  http://localhost:9001/api/project/postData
+content-type: application/json
+
+{
+    "email": "gautam@gmail.com",
+    "project_title": "Title",
+    "project_desc": "NA",
+    "start_date": "10/06/2024",
+    "end_date": "16/06/2024"
+}
+
+# Personal API:
+
+###
+GET http://localhost:9001/api/personal/get
+content-type: application/json
+
+
+###
+POST  http://localhost:9001/api/personal/postData
+content-type: application/json
+
+{
+    "email": "gautam@gmail.com",
+    "dob": "07/01/2002",
+    "gender": "Male",
+    "bio": "I AM GKG"
+}
+
+
 # TaskList API:
 
 ###
 GET http://localhost:9001/api/taskList/get
 content-type: application/json
+
+
+###
+POST  http://localhost:9001/api/taskList/postData
+content-type: application/json
+
+{
+    "email": "gautam@gmail.com",
+    "task": "Update",
+    "note": "TYS Attendance",
+    "date": "10/06/2024",
+    "status": "present"
+}
 
 
 # TimeSheet API:
@@ -93,12 +240,37 @@ content-type: application/json
 GET http://localhost:9001/api/timeSheet/get
 content-type: application/json
 
+
+###
+POST  http://localhost:9001/api/timeSheet/postData
+content-type: application/json
+
+{
+    "email": "gautam@gmail.com",
+    "task": "New Api",
+    "date": "10/06/2024",
+    "status": "present"
+}
+
 # LeaveStatus API:
 
 ###
 GET http://localhost:9001/api/leaveStatus/get
 content-type: application/json
 
+
+###
+POST  http://localhost:9001/api/leaveStatus/postData
+content-type: application/json
+
+{
+    "email": "gautam@gmail.com",
+    "first_name": "GKG",
+    "date": "10/06/2024",
+    "status": "present",
+    "holiday": "NA",
+    "comment": "NA"
+}
 
 # Regularization API:
 
@@ -107,3 +279,36 @@ GET http://localhost:9001/api/regularization/get
 content-type: application/json
 
 
+###
+POST  http://localhost:9001/api/regularization/postData
+content-type: application/json
+
+{
+    "email": "gautam@gmail.com",
+    "date": "09:30",
+    "reason": "06:00",
+    "status": "present",
+    "comment": "NA"
+}
+
+
+# Work Experience API:
+
+###
+GET http://localhost:9001/api/work/get
+content-type: application/json
+
+
+###
+POST  http://localhost:9001/api/work/postData
+content-type: application/json
+
+{
+    "email": "gautam@gmail.com",
+    "designation": "Java Developer",
+    "experience": "2",
+    "company_name": "present",
+    "start_date": "10/10/2020",
+    "end_date": "20/10/2023",
+    "desc": "NA"
+}

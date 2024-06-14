@@ -3,12 +3,12 @@ const models = require('../../../managers/models');
 const mongoose = require('mongoose');
 
 module.exports = {
-    getTaskList: async (req, res) => {
+    getProject: async (req, res) => {
         try {
-            const record = await models.CustomerModel.TaskList.find();
+            const record = await models.CustomerModel.Project.find();
             console.log(record);
             return res.status(200).json({
-                message: "All TaskList Record!..",
+                message: "All Project Record!..",
                 Data: record
             });
         }
@@ -21,22 +21,22 @@ module.exports = {
         }
     },
 
-    postTaskList: async (req, res) => {
+    postProject: async (req, res) => {
         try {
 
-            const NewRecord = new models.CustomerModel.TaskList({
+            const NewRecord = new models.CustomerModel.Project({
                 _id: new mongoose.Types.ObjectId(),
                 email: req.body.email,
-                task: req.body.task,
-                note: req.body.note,
-                date: req.body.date,
-                status: req.body.status,
+                project_title: req.body.project_title,
+                project_desc: req.body.project_desc,
+                start_date: req.body.start_date,
+                end_date: req.body.end_date,
             });
 
             NewRecord.save().then(data => {
                 console.log(data);
                 res.status(200).json({
-                    message: "New TaskList Record!..",
+                    message: "New Project Record!..",
                     Data: data
                 });
             })
@@ -50,4 +50,6 @@ module.exports = {
             })
         }
     },
+
+
 }

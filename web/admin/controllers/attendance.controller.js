@@ -80,6 +80,13 @@ module.exports = {
             const server = req.body;
             console.log(server)
 
+            // Check if the email already exists
+            // const CheckDate = await models.CustomerModel.Attendance.findOne({ date: server.date });
+            // if (CheckDate) {
+            //     const errorMsg = 'Today Attendance Already Completed!..';
+            //     res.redirect(`/admin/user/add-user?error=${encodeURIComponent(errorMsg)}`);
+            // }
+
             const UserData = new models.CustomerModel.Attendance({
                 _id: new mongoose.Types.ObjectId(),
                 email: server.email,

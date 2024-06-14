@@ -3,12 +3,12 @@ const models = require('../../../managers/models');
 const mongoose = require('mongoose');
 
 module.exports = {
-    getProfessional: async (req, res) => {
+    getWorkExperience: async (req, res) => {
         try {
-            const record = await models.CustomerModel.Professional.find();
+            const record = await models.CustomerModel.WorkExperience.find();
             console.log(record);
             return res.status(200).json({
-                message: "All Professional Record!..",
+                message: "All WorkExperience Record!..",
                 Data: record
             });
         }
@@ -21,27 +21,30 @@ module.exports = {
         }
     },
 
-    postProfessional: async (req, res) => {
+    postWorkExperience: async (req, res) => {
         try {
 
-            const NewRecord = new models.CustomerModel.Professional({
+            // Check if the Same Designation already exists
+            // const existingUser = await models.CustomerModel.WorkExperience.findOne({ designation: req.body.designation });
+            // if (existingUser) {
+            //     return res.status(400).json({ message: "This Designation Already Used!.." });
+            // }
+
+            const NewRecord = new models.CustomerModel.WorkExperience({
                 _id: new mongoose.Types.ObjectId(),
                 email: req.body.email,
                 designation: req.body.designation,
                 experience: req.body.experience,
-                skill: req.body.skill,
-                cv_intro: req.body.cv_intro,
-                join_date: req.body.join_date,
-                corfirm_date: req.body.corfirm_date,
-                termination_date: req.body.termination_date,
-                termination_reasons: req.body.termination_reasons,
+                company_name: req.body.company_name,
                 desc: req.body.desc,
+                start_date: req.body.start_date,
+                end_date: req.body.end_date,
             });
 
             NewRecord.save().then(data => {
                 console.log(data);
                 res.status(200).json({
-                    message: "New Professional Record!..",
+                    message: "New WorkExperience Record!..",
                     Data: data
                 });
             })
@@ -55,4 +58,6 @@ module.exports = {
             })
         }
     },
+
+
 }

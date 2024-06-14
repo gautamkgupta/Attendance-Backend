@@ -9,6 +9,10 @@ const TaskListController = require('./taskList.controller');
 const TimeSheetController = require('./timeSheet.controller');
 const RegularizationController = require('./regularization.controller');
 const LeaveStatusController = require('./leaveStatus.controller');
+const ProjectController = require('./project.controller');
+const PersonalController = require('./personal.controller');
+const BankController = require('./bank.controller');
+const WorkExperienceController = require('./workExperience.controller');
 
 module.exports = {
     UserController,
@@ -21,5 +25,9 @@ module.exports = {
     TimeSheetController,
     LeaveStatusController,
     RegularizationController,
+    ProjectController,
+    PersonalController,
+    BankController,
+    WorkExperienceController,
 }
 

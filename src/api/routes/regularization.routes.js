@@ -3,6 +3,7 @@ const router = require('express').Router();
 const { RegularizationController } = require('../controllers');
 
 router.get("/get", RegularizationController.getRegularization);
+router.post("/postData", RegularizationController.postRegularization);
 
 
 module.exports = router;

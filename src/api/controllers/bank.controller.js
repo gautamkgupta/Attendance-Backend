@@ -3,12 +3,12 @@ const models = require('../../../managers/models');
 const mongoose = require('mongoose');
 
 module.exports = {
-    getTaskList: async (req, res) => {
+    getBank: async (req, res) => {
         try {
-            const record = await models.CustomerModel.TaskList.find();
+            const record = await models.CustomerModel.BankAccount.find();
             console.log(record);
             return res.status(200).json({
-                message: "All TaskList Record!..",
+                message: "All Bank Record!..",
                 Data: record
             });
         }
@@ -21,22 +21,25 @@ module.exports = {
         }
     },
 
-    postTaskList: async (req, res) => {
+    postBank: async (req, res) => {
         try {
 
-            const NewRecord = new models.CustomerModel.TaskList({
+            const NewRecord = new models.CustomerModel.BankAccount({
                 _id: new mongoose.Types.ObjectId(),
                 email: req.body.email,
-                task: req.body.task,
-                note: req.body.note,
-                date: req.body.date,
-                status: req.body.status,
+                account_number: req.body.account_number,
+                bank_name: req.body.bank_name,
+                ifsc_code: req.body.ifsc_code,
+                name_as_bank: req.body.name_as_bank,
+                branch_name: req.body.branch_name,
+                aadhar_card: req.body.aadhar_card,
+                pan_card: req.body.pan_card,
             });
 
             NewRecord.save().then(data => {
                 console.log(data);
                 res.status(200).json({
-                    message: "New TaskList Record!..",
+                    message: "New Bank Record!..",
                     Data: data
                 });
             })
@@ -50,4 +53,6 @@ module.exports = {
             })
         }
     },
+
+
 }

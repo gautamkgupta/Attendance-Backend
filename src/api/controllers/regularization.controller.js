@@ -20,4 +20,34 @@ module.exports = {
             })
         }
     },
+
+    postRegularization: async (req, res) => {
+        try {
+
+            const NewRecord = new models.CustomerModel.Regularization({
+                _id: new mongoose.Types.ObjectId(),
+                email: req.body.email,
+                date: req.body.date,
+                reason: req.body.reason,
+                status: req.body.status,
+                comment: req.body.comment,
+            });
+
+            NewRecord.save().then(data => {
+                console.log(data);
+                res.status(200).json({
+                    message: "New Regularization Record!..",
+                    Data: data
+                });
+            })
+
+        }
+        catch (err) {
+            console.log(err);
+            return res.json({
+                message: "Error",
+                Error: err,
+            })
+        }
+    },
 }

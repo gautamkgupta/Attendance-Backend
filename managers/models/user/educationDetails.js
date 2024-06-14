@@ -11,7 +11,7 @@ const EducationSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    company_name: {
+    course_name: {
         type: String,
         required: true,
     },
